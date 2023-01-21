@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
     "drf_yasg",
     "user",
 ]
@@ -134,6 +135,7 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
+    "NON_FIELD_ERRORS_KEY": "error",
 }
 
 
@@ -149,3 +151,13 @@ EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS")
 EMAIL_PORT = os.environ.get("EMAIL_PORT")
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+
+
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"}
+    }
+}
+
+# password reset link timeout
+PASSWORD_RESET_TIMEOUT = 600  # 10 minutes
