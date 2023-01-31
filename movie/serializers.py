@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Genre, Movie
+from .models import Genre, Movie, Review
 
 
 class GenreSerializer(serializers.ModelSerializer):
@@ -17,7 +17,29 @@ class GenreSerializer(serializers.ModelSerializer):
         return instance
 
 
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = "__all__"
+
+
+class CreateUpdateReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ("description",)
+
+
 class MovieSerializer(serializers.ModelSerializer):
+    genre = GenreSerializer(many=True)
+    movie_reviews = ReviewSerializer(many=True)
+
+    class Meta:
+        model = Movie
+        fields = "__all__"
+
+
+class CreateUpdateMovieSerializer(serializers.ModelSerializer):
+    # separate serializer to create/update movies without providing reviews
     genre = GenreSerializer(many=True)
 
     class Meta:

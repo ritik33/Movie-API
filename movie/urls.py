@@ -10,6 +10,9 @@ from .views import (
     CreateMovieView,
     UpdateMovieView,
     DeleteMovieView,
+    CreateReviewView,
+    UpdateReviewView,
+    DeleteReviewView,
 )
 
 
@@ -24,4 +27,7 @@ urlpatterns = [
     path("create-movie/", CreateMovieView.as_view(), name="create-movie"),
     path("update-movie/<int:pk>/", UpdateMovieView.as_view(), name="update-movie"),
     path("delete-movie/<int:pk>/", DeleteMovieView.as_view(), name="delete-movie"),
+    path("create-review/<int:pk>/", CreateReviewView.as_view(), name="create-review"),
+    path("update-review/<int:pk>/", UpdateReviewView.as_view(), name="update-review"),
+    path("delete-review/<int:pk>/", DeleteReviewView.as_view(), name="delete-review"),
 ]

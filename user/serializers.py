@@ -8,6 +8,7 @@ from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 from rest_framework import serializers
 from .models import User
+from movie.serializers import ReviewSerializer
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -91,9 +92,11 @@ class UserLogoutSerializer(serializers.Serializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    user_reviews = ReviewSerializer(many=True, read_only=True)
+
     class Meta:
         model = User
-        fields = ["id", "email", "username"]
+        fields = ["id", "email", "username", "user_reviews"]
 
 
 class UserPasswordChangeSerializer(serializers.ModelSerializer):
